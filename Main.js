@@ -1,4 +1,4 @@
-// Global Variable
+ // Global Variable
 var gameNs = {};
 
 function main()
@@ -8,6 +8,7 @@ function main()
     gameNs.game = game;
     game.init();
     game.update();
+    //imageDraw();
 }
 
 /**
@@ -23,4 +24,11 @@ function initCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     document.body.appendChild(canvas);
+}
+
+function imageDraw() {
+    var c = document.getElementById("myCanvas");
+    var ctx = c.getContext("2d");
+    var img = document.getElementById("img/coin/.png");
+    ctx.drawImage(img, 10, 10);
 }
