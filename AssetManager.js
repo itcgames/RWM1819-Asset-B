@@ -32,7 +32,7 @@ class  AssetManager{
      */
     draw() {
         var canvas = document.getElementById(AssetManager.canvas);
-        var context = canvas.getContext('2d');
+        var context = canvas.getContext("2d");
          if(!AssetManager.spriteSheet){
             context.drawImage(AssetManager.image, 0, AssetManager.width,
               AssetManager.height, AssetManager.x, AssetManager.y,
