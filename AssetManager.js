@@ -33,7 +33,7 @@ class  AssetManager{
     draw() {
         var context = AssetManager.context;
          if(!AssetManager.spriteSheet){
-            context.drawImage(AssetManager.image, 0, AssetManager.width,
+            context.drawImage(AssetManager.image, 0, 0, AssetManager.width,
               AssetManager.height, AssetManager.x, AssetManager.y,
                AssetManager.width, AssetManager.height);
          }
