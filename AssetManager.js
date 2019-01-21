@@ -31,7 +31,7 @@ class  AssetManager{
      * Draw function for the Image.
      */
     draw() {
-        var context = canvas.getContext("2d");
+        var context = AssetManager.context;
          if(!AssetManager.spriteSheet){
             context.drawImage(AssetManager.image, 0, AssetManager.width,
               AssetManager.height, AssetManager.x, AssetManager.y,
