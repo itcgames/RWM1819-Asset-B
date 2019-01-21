@@ -16,7 +16,7 @@ class  AssetManager{
         AssetManager.y = y;
         AssetManager.width = width;
         AssetManager.height = height;
-        AssetManager.canvas = canvas;
+        AssetManager.context = canvas.getContext("2d");
 
         AssetManager.spriteSheet = false;
         AssetManager.frameIndex = 0;
@@ -31,7 +31,6 @@ class  AssetManager{
      * Draw function for the Image.
      */
     draw() {
-        var canvas = document.getElementById(AssetManager.canvas);
         var context = canvas.getContext("2d");
          if(!AssetManager.spriteSheet){
             context.drawImage(AssetManager.image, 0, AssetManager.width,
