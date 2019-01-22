@@ -8,46 +8,55 @@
  */
 class  AssetManager{
 
-    constructor (x, y, width, height, canvas)
+    constructor (x, y, width, height, frameTop, frameLeft)
     {
-        AssetManager.image = new Image(width, height);
-        AssetManager.imgdead = new Image(10,10);
-        AssetManager.x = x;
-        AssetManager.y = y;
-        AssetManager.width = width;
-        AssetManager.height = height;
-        AssetManager.context = canvas.getContext("2d");
+        this.image = new Image();
+        this.x = x;
+        this.y = y;
+        this.scaleX = 1;
+        this.scaleY = 1;
+        this.width = width;
+        this.height = height;
 
-        AssetManager.spriteSheet = false;
-        AssetManager.frameIndex = 0;
-        AssetManager.tickCount = 0;
-        AssetManager.ticksPerFrame = 0;
-        AssetManager.numberPerFrame = 1;
-        AssetManager.loop = true;
+        this.spriteSheet = false;
+        this.frameTop = frameTop;
+        this.frameLeft = frameLeft;
 
+        this.frameIndex = 0;
+        this.tickCount = 0;
+        this.ticksPerFrame = 0;
+        this.numberPerFrame = 1;
+        this.loop = true;
+        this.flipped = false;
     }
 
     /**
      * Draw function for the Image.
      */
-    draw() {
-        var context = AssetManager.context;
-         if(!AssetManager.spriteSheet){
-            context.drawImage(AssetManager.image, 0, 0, AssetManager.width,
-              AssetManager.height, AssetManager.x, AssetManager.y,
-               AssetManager.width, AssetManager.height);
+    draw(ctx) {
+         if(!this.spriteSheet){
+            ctx.drawImage(this.image, 0, 0, this.width,
+                this.height, this.x, this.y,
+                this.width, this.height);
          }
          else{
-            context.drawImage(
-                AssetManager.image,
-                AssetManager.frameIndex * AssetManager.width / AssetManager.numberPerFrame,
-                0,
-                AssetManager.width / AssetManager.numberPerFrame,
-                AssetManager.height,
-                AssetManager.x,
-                AssetManager.y,
-                AssetManager.width / AssetManager.numberPerFrame ,
-                AssetManager.height);
+            ctx.save();
+            if(this.flipped){
+                ctx.scale(-1,1);
+                this.x = -this.x + this.width * -1;
+            }
+
+            ctx.drawImage(
+                this.image,
+                this.frameLeft + this.frameIndex * this.width,
+                this.frameTop,
+                this.width,
+                this.height,
+                this.x,
+                this.y,
+                this.width * this.scaleX,
+                this.height * this.scaleY);
+                ctx.restore();
          }
     }
 
@@ -56,51 +65,52 @@ class  AssetManager{
      * Must be called before draw.
      */
     load(path) {
-        AssetManager.image.src = (path);
+        this.image.src = path;
+    }
+
+    setScale(x, y){
+        this.scaleX = x;
+        this.scaleY = y;
     }
 
     setPos(x, y) {
-        AssetManager.x = x;
-        AssetManager.y = y;
+        this.x = x;
+        this.y = y;
     }
 
-    setWidth(width) {
-        AssetManager.width = width;
-    }
-
-    setHeight(height) {
-        AssetManager.height = height;
+    setDimensions(width, height) {
+        this.width = width;
+        this.height = height;
     }
 
     update() {
-      AssetManager.tickCount += 1;
+        this.tickCount += 1;
 
-        if(AssetManager.tickCount > AssetManager.ticksPerFrame)
+        if(this.tickCount > this.ticksPerFrame)
         {
-            AssetManager.tickCount = 0;
+            this.tickCount = 0;
 
-            if( AssetManager.frameIndex < AssetManager.numberPerFrame -1)
+            if( this.frameIndex < this.numberPerFrame -1)
             {
-                AssetManager.frameIndex += 1 ;
+                this.frameIndex += 1 ;
             }
-            else if ( AssetManager.loop)
+            else if ( this.loop)
             {
-                AssetManager.frameIndex = 0;
+                this.frameIndex = 0;
             }
         }
-
-}
+    }
 
     /**
      * set Sprite sheet function for animations.
      */
     setSpriteSheet(spriteSheet, ticksperframe, numberperframe) {
-        AssetManager.spriteSheet = spriteSheet;
-        AssetManager.frameIndex = 0;
-        AssetManager.tickCount = 0;
-        AssetManager.ticksPerFrame = ticksperframe;
-        AssetManager.numberPerFrame = numberperframe;
-
+        this.spriteSheet = true;
+        this.image.src = spriteSheet;
+        this.frameIndex = 0;
+        this.tickCount = 0;
+        this.ticksPerFrame = ticksperframe;
+        this.numberPerFrame = numberperframe;
     }
 
 }
