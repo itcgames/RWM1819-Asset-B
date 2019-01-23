@@ -28,6 +28,7 @@ class  AssetManager{
         this.numberPerFrame = 1;
         this.loop = true;
         this.flipped = false;
+        this.horizontalSheet = true;
     }
 
     /**
@@ -46,17 +47,32 @@ class  AssetManager{
                 this.x = -this.x + this.width * -1;
             }
 
-            ctx.drawImage(
-                this.image,
-                this.frameLeft + this.frameIndex * this.width,
-                this.frameTop,
-                this.width,
-                this.height,
-                this.x,
-                this.y,
-                this.width * this.scaleX,
-                this.height * this.scaleY);
-                ctx.restore();
+            if(this.horizontalSheet){
+                ctx.drawImage(
+                    this.image,
+                    this.frameLeft + this.frameIndex * this.width,
+                    this.frameTop,
+                    this.width,
+                    this.height,
+                    this.x,
+                    this.y,
+                    this.width * this.scaleX,
+                    this.height * this.scaleY);
+                    ctx.restore();
+            }
+            else{
+                ctx.drawImage(
+                    this.image,
+                    this.frameLeft,
+                    this.frameTop + this.frameIndex * this.width,
+                    this.width,
+                    this.height,
+                    this.x,
+                    this.y,
+                    this.width * this.scaleX,
+                    this.height * this.scaleY);
+                    ctx.restore();
+            }
          }
     }
 
