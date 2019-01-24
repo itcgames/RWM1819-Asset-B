@@ -64,7 +64,7 @@ class  AssetManager{
                 ctx.drawImage(
                     this.image,
                     this.frameLeft,
-                    this.frameTop + this.frameIndex * this.width,
+                    this.frameTop + this.frameIndex * this.height,
                     this.width,
                     this.height,
                     this.x,
