@@ -33,7 +33,7 @@ class  AssetManager{
     }
 
 
-    drawRotatedImage(image, x, y, angle, ctx)
+    drawRotatedImage(x, y, angle, ctx)
     {
         // save the current co-ordinate system
         // before we screw with it
@@ -48,7 +48,7 @@ class  AssetManager{
 
         // draw it up and to the left by half the width
         // and height of the image
-        ctx.drawImage(image, -(image.width/2), -(image.height/2));
+        ctx.drawImage(this.image, -(this.image.width/2), -(this.image.height/2));
 
         // and restore the co-ords to how they were when we began
         ctx.restore();
